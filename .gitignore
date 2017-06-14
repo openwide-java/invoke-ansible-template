@@ -1,0 +1,13 @@
+.builddir/
+delivery/*
+.ropeproject/
+log/*
+dependencies/*
+pyenv/
+/vagrant/
+
+*.retry
+*.pyc
+.*.swp
+
+!*/.gitkeep

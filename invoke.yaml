@@ -1,0 +1,6 @@
+---
+default_playbook: playbooks/default.yml
+virtualenv_path: .builddir/virtualenv
+ansible:
+  skip: no
+  version: '2.3.0.0'
