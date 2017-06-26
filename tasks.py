@@ -147,15 +147,22 @@ def ansible_list_hosts(ctx, limit=None):
       help={
           'virtualenv-path': 'custom virtualenv folder',
           'playbook': 'playbook to run',
+          'check': 'run the ansible playbook with check option',
+          'diff': 'run the ansible playbook with diff option',
           'ansible-args': 'additional ansible args',
           'extra-vars': 'extra ansible vars (json format)'
       }
 )
-def ansible_run(ctx, virtualenv_path=None, playbook=None, extra_vars='', ansible_args=''):
+def ansible_run(ctx, virtualenv_path=None, playbook=None, check=False, diff=False, extra_vars='', ansible_args=''):
     """
     Run an arbitrary ansible playbook.
     """
     extra_vars_parsed = {}
+    ansible_args = ansible_args + ' ' + ctx.ansible_default_args
+    if check:
+        ansible_args = ansible_args + ' --check '
+    if diff:
+        ansible_args = ansible_args + ' --diff '
     if extra_vars:
         extra_vars_parsed = json.loads(extra_vars)
     _ansible_playbook(ctx, virtualenv_path=virtualenv_path, playbook=playbook,
