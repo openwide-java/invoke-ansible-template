@@ -8,6 +8,7 @@ import getpass
 
 import os
 import re
+import shlex
 import json
 try:  # py3
     from shlex import quote
@@ -133,11 +134,12 @@ def ansible_list_hosts(ctx, limit=None):
     """
     List hosts from inventory
     """
+    virtualenv_path = ctx.virtualenv_path
     inventory_path = os.path.dirname(__file__) + '/inventory/hosts'
-    ansible_cmd = ['ansible', 'all', '-i', inventory_path, '--list-hosts']
+    ansible_args = ['all', '-i', inventory_path, '--list-hosts']
     if limit is not None:
-        ansible_cmd.extend(['-l', limit])
-    hosts = subprocess.check_output(ansible_cmd)
+        ansible_args.extend(['-l', limit])
+    hosts = subprocess.check_output(shlex.split(_vcommand(virtualenv_path, 'ansible', *ansible_args), False, True))
     print hosts
 
 
