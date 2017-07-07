@@ -1,2 +1,5 @@
 ---
-[]
+# ansible role requirements
+- name: vagrant
+  src: git+https://github.com/openwide-java/ansible-vagrant.git
+  version: master
